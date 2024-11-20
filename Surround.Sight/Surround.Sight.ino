@@ -8,20 +8,28 @@
 
 // x1 vibration sensor
 // x1 ultrasonic ranger
+#include "Ultrasonic.h"
 
+Ultrasonic myUltrasonicSensor(6);
+int OPDevice = 7;
 
-// constants won't change. They're used here to set pin numbers:
-const int buttonPin = 7;     // the number of the pushbutton pin
+void setup()
+{
+ digitalWrite(OPDevice, HIGH);
+ Serial.begin(9600);
 
-// variables will change:
-int buttonState = 1;         // variable for reading the pushbutton status
-
-void setup() {
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
 }
+void loop()
+{
+  long RangeInCentimeters;
 
-void loop() {
-  // read the state of the pushbutton value:
-    digitalWrite(buttonPin, HIGH);
+  RangeInCentimeters = myUltrasonicSensor.MeasureInCentimeters(); // two measurements should keep an interval
+  Serial.print(RangeInCentimeters);//0~400cm
+  Serial.println(" cm");
+  delay(100);
+  if (RangeInCentimeters <= 100) {
+    digitalWrite(OPDevice, HIGH);
+  } else {
+    digitalWrite(OPDevice, LOW);
   }
+}
