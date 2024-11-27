@@ -17,7 +17,6 @@ void setup()
 {
  digitalWrite(OPDevice, HIGH);
  Serial.begin(9600);
-
 }
 void loop()
 {
